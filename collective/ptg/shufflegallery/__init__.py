@@ -49,26 +49,13 @@ class ShufflegalleryDisplayType(BaseDisplayType):
 
     def javascript(self):
         return u"""
-<script type="text/javascript"
-    src="%(portal_url)s/++resource++ptg.shufflegallery/jquery.promptu-menu.js"></script>
-
-<script type="text/javascript">
-$(document).ready(function() {
-   	$('ul.promptu-menu').promptumenu({width:%(width)s, height:%(height)s, rows: %(rows)i, columns: %(columns)i, direction: %(direction)s, pages: %(pages)s});
-   	$('ul.promptu-menu2').promptumenu({width:%(width)s, height:%(height)s, rows: %(rows)i, columns: %(columns)i, direction: %(direction)s, pages: %(pages)s});
-})(jQuery);
-</script>
-        """ % {
-        'portal_url': self.portal_url,
-        'columns': 3,
-		'rows': 4,
-		'direction': 'horizontal',
-		'width': 'auto',
-		'height': 'auto',
-		'duration': self.settings.delay,
-		'pages': True,
-		'inertia': 200
-        }
+		<script type="text/javascript" src="++resource++ptg.shufflegallery/jquery.promptu-menu.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('ul.promptu-menu').promptumenu({width:500, height:500, rows: 2, columns: 2, direction: 'horizontal', pages: true});
+			});
+		</script>
+        """ 
 
     def css(self):
         base = '%s/++resource++ptg.shufflegallery' % (
