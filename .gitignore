@@ -1,0 +1,8 @@
+
+*.pyc
+
+collective.ptg.shufflegallery.egg-info/
+
+collective/.DS_Store
+
+.DS_Store
