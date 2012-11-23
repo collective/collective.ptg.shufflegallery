@@ -15,22 +15,22 @@ class IShufflegalleryDisplaySettings(IBaseSettings):
     shufflegallery_height = schema.Int(
         title=_(u"label_shufflegallery_height",
             default=u"Height of the gallery in pixels"),
-        default=500")
+        default=500)
     shufflegallery_rows = schema.Int(
         title=_(u"label_shufflegallery_rows",
             default=u"Number of rows"),
         default=3)
-    shufflegallery_pages = schema.Bool(
-        title=_(u"label_shufflegallery_pages",
-            default=u"Pages?"),
-        default=True)
     shufflegallery_columns = schema.Int(
         title=_(u"label_shufflegallery_rows",
             default=u"Number of columns"),
         default=3)    
+    shufflegallery_pages = schema.Bool(
+        title=_(u"label_shufflegallery_pages",
+            default=u"Pages?"),
+        default=True)
     shufflegallery_direction = schema.Choice(
         title=_(u"label_shufflegallery_direction",
-                default=u"Show thumbs in what direction"),
+                default=u"Show thumbs in direction"),
         default="horizontal",
         vocabulary=SimpleVocabulary([
             SimpleTerm("horizontal", "horizontal",
@@ -73,12 +73,18 @@ class ShufflegalleryDisplayType(BaseDisplayType):
 
     def javascript(self):
         return u"""
-		<script type="text/javascript" src="++resource++ptg.shufflegallery/jquery.promptu-menu.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				$('ul.promptu-menu').promptumenu({width: %(width)i, height: %(height)i, rows: %(rows)i, columns: %(columns)i, direction: '%(direction)s', intertia: %(intertia)i, pages: true});
-			});
-		</script>
+<script type="text/javascript" src="++resource++ptg.shufflegallery/jquery.promptu-menu.js"></script>
+<script type="text/javascript">
+$(function(){
+    $('ul.promptu-menu').promptumenu({width: %(width)i, height: %(height)i, rows: %(rows)i, columns: %(columns)i, direction: '%(direction)s', intertia: %(inertia)i, pages: %(pages)i});
+	$('ul.promptu-menu a').click(function(e) {
+        e.preventDefault();
+    });
+    $('ul.promptu-menu a').dblclick(function(e) {
+        window.location.replace($(this).attr("href"));
+    });
+});
+</script>
         """  % {
         'columns': self.settings.shufflegallery_columns,
 		'rows': self.settings.shufflegallery_rows,
@@ -87,7 +93,7 @@ class ShufflegalleryDisplayType(BaseDisplayType):
 		'height': self.settings.shufflegallery_height,
 		'duration': self.settings.delay,
 		'pages': self.settings.shufflegallery_pages,
-		'inertia': self.settings.shufflegallery_intertia,
+		'inertia': self.settings.shufflegallery_inertia,
         }
 
     def css(self):
