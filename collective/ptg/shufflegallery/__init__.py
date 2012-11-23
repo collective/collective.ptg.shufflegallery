@@ -8,19 +8,43 @@ from zope import schema
 _ = MessageFactory('collective.ptg.shufflegallery')
 
 class IShufflegalleryDisplaySettings(IBaseSettings):
-    shufflegallery_width = schema.TextLine(
+    shufflegallery_width = schema.Int(
         title=_(u"label_shufflegallery_width",
-            default=u"Width of the gallery"),
-        default=u"600px")
-    shufflegallery_height = schema.TextLine(
+            default=u"Width of the gallery in pixels"),
+        default=600)
+    shufflegallery_height = schema.Int(
         title=_(u"label_shufflegallery_height",
-            default=u"Height of the gallery"),
-        default=u"350px")
-    shufflegallery_textwidth = schema.TextLine(
-        title=_(u"label_shufflegallery_textwidth",
-            default=u"Width of the (black) text box"),
-        default=u"150px")
-              
+            default=u"Height of the gallery in pixels"),
+        default=500")
+    shufflegallery_rows = schema.Int(
+        title=_(u"label_shufflegallery_rows",
+            default=u"Number of rows"),
+        default=3)
+    shufflegallery_pages = schema.Bool(
+        title=_(u"label_shufflegallery_pages",
+            default=u"Pages?"),
+        default=True)
+    shufflegallery_columns = schema.Int(
+        title=_(u"label_shufflegallery_rows",
+            default=u"Number of columns"),
+        default=3)    
+    shufflegallery_direction = schema.Choice(
+        title=_(u"label_shufflegallery_direction",
+                default=u"Show thumbs in what direction"),
+        default="horizontal",
+        vocabulary=SimpleVocabulary([
+            SimpleTerm("horizontal", "horizontal",
+                _(u"label_shufflegallery_horizontal",
+                    default=u"Horizontal")),
+            SimpleTerm("vertical", "vertical",
+                _(u"label_shufflegallery_vertical",
+                    default=u"Vertical")
+            )
+        ]))
+    shufflegallery_inertia = schema.Int(
+        title=_(u"label_shufflegallery_inertia",
+            default=u"Inertia"),
+        default=200)         
     shufflegallery_style = schema.Choice(
         title=_(u"label_shufflegallery_style",
                 default=u"What stylesheet (css file) to use"),
@@ -52,18 +76,18 @@ class ShufflegalleryDisplayType(BaseDisplayType):
 		<script type="text/javascript" src="++resource++ptg.shufflegallery/jquery.promptu-menu.js"></script>
 		<script type="text/javascript">
 			$(function(){
-				$('ul.promptu-menu').promptumenu({width:%(width)i, height:%(height)i, rows: %(rows)i, columns: %(columns)i, direction: '%(direction)s', pages: true});
+				$('ul.promptu-menu').promptumenu({width: %(width)i, height: %(height)i, rows: %(rows)i, columns: %(columns)i, direction: '%(direction)s', intertia: %(intertia)i, pages: true});
 			});
 		</script>
         """  % {
-        'columns': 2,
-		'rows': 3,
-		'direction': 'horizontal',
-		'width': 500,
-		'height': 500,
+        'columns': self.settings.shufflegallery_columns,
+		'rows': self.settings.shufflegallery_rows,
+		'direction': self.settings.shufflegallery_direction,
+		'width': self.settings.shufflegallery_width,
+		'height': self.settings.shufflegallery_height,
 		'duration': self.settings.delay,
-		'pages': 'True',
-		'inertia': 200
+		'pages': self.settings.shufflegallery_pages,
+		'inertia': self.settings.shufflegallery_intertia,
         }
 
     def css(self):
