@@ -28,6 +28,10 @@ class IShufflegalleryDisplaySettings(IBaseSettings):
         title=_(u"label_shufflegallery_pages",
             default=u"Pages?"),
         default=True)
+    shufflegallery_showtext = schema.Bool(
+        title=_(u"label_shufflegallery_showtext",
+            default=u"Show text?"),
+        default=False)
     shufflegallery_direction = schema.Choice(
         title=_(u"label_shufflegallery_direction",
                 default=u"Show thumbs in direction"),
@@ -76,7 +80,7 @@ class ShufflegalleryDisplayType(BaseDisplayType):
 <script type="text/javascript" src="++resource++ptg.shufflegallery/jquery.promptu-menu.js"></script>
 <script type="text/javascript">
 $(function(){
-    $('ul.promptu-menu').promptumenu({width: %(width)i, height: %(height)i, rows: %(rows)i, columns: %(columns)i, direction: '%(direction)s', intertia: %(inertia)i, pages: %(pages)i});
+    $('ul.promptu-menu').promptumenu({width: %(width)i, height: %(height)i, rows: %(rows)i, columns: %(columns)i});
 	$('ul.promptu-menu a').click(function(e) {
         e.preventDefault();
     });

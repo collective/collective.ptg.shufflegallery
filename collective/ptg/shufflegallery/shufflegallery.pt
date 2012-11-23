@@ -10,7 +10,7 @@
                                     alt img/description;
                                     src img/thumb_url" />
                 </a>
-                <span class="textcontainer">
+                <span class="textcontainer" tal:condition="view/settings/shufflegallery_showtext">
                    <div class="image-title" tal:content="img/title">Title</div> 
                    <div class="image-desc" tal:content="structure img/description">Description</div> 
                    <div tal:replace="structure img/bodytext" tal:condition="view/settings/enable_bodytext"></div>
