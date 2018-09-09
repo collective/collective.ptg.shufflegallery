@@ -37,7 +37,7 @@ msgstr "shufflegallery"
 #. Default: "Height of the gallery in pixels"
 #: ./__init__.py:16
 msgid "label_shufflegallery_height"
-msgstr "Altura de la galería en pixels"
+msgstr "Altura de la galería en píxeles"
 
 #. Default: "Horizontal"
 #: ./__init__.py:41
@@ -47,7 +47,7 @@ msgstr "Horizontal"
 #. Default: "Inertia"
 #: ./__init__.py:49
 msgid "label_shufflegallery_inertia"
-msgstr ""
+msgstr "Inercia"
 
 #. Default: "Pages?"
 #: ./__init__.py:28
@@ -87,4 +87,4 @@ msgstr "Vertical"
 #. Default: "Width of the gallery in pixels"
 #: ./__init__.py:12
 msgid "label_shufflegallery_width"
-msgstr "Anchura de la galería en pixels"
+msgstr "Anchura de la galería en píxeles"
